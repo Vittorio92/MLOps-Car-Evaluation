@@ -7,14 +7,17 @@ from sklearn.compose import ColumnTransformer
 import joblib
 import os
 
-from function_app import app
 from shared.storage import get_blob_service
 from shared.config import (
     CLEAN_DATA_CONTAINER, MODEL_CONTAINER, PREPROCESSOR_NAME, NAME_PROCESSED_DATASET
 )
 
-@app.function_name(name="preprocessingFunctionEventGrid")
-@app.event_grid_trigger(arg_name="event", auth_level=func.AuthLevel.ANONYMOUS)
+
+preprocessfunction = func.Blueprint()
+
+
+@preprocessfunction.function_name(name="preprocessingFunctionEventGrid")
+@preprocessfunction.event_grid_trigger(arg_name="event", auth_level=func.AuthLevel.ANONYMOUS)
 def preprocessfunction(event: func.EventGridEvent):
     logging.info(f"Evento ricevuto: {event.event_type}")
 

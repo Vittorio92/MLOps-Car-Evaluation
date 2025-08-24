@@ -1,10 +1,13 @@
 import logging
 import json
 import azure.functions as func
-from function_app import app
 from shared.db import get_conn
 
-@app.route(route="add_prediction", methods=["POST"])
+
+add_prediction = func.Blueprint()
+
+
+@add_prediction.route(route="add_prediction", methods=["POST"])
 def add_prediction(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger. Aggiunta della predizione al DB')
 

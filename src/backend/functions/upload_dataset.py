@@ -1,11 +1,14 @@
 import logging
 import azure.functions as func
 from requests_toolbelt.multipart import decoder
-from function_app import app
 from shared.config import RAW_DATA_CONTAINER, DATASET_NAME
 
-@app.route(route="upload_dataset", methods=["POST"])
-@app.blob_output(arg_name="dataset_blob", path=RAW_DATA_CONTAINER + "/" + DATASET_NAME, connection="AzureWebJobsStorage")
+
+upload_dataset = func.Blueprint()
+
+
+@upload_dataset.route(route="upload_dataset", methods=["POST"])
+@upload_dataset.blob_output(arg_name="dataset_blob", path=RAW_DATA_CONTAINER + "/" + DATASET_NAME, connection="AzureWebJobsStorage")
 def upload_dataset(req: func.HttpRequest, dataset_blob: func.Out[str]) -> func.HttpResponse:
     logging.info('Python HTTP trigger. Caricamento del dataset')
 

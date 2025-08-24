@@ -4,11 +4,14 @@ import json
 import pandas as pd
 import azure.functions as func
 import os
-from function_app import app
 from shared.config import RAW_DATA_CONTAINER, DATASET_NAME
 from shared.storage import get_blob_service
 
-@app.route(route="get_metadata", auth_level=func.AuthLevel.ANONYMOUS, methods=["GET"])
+
+get_metadata = func.Blueprint()
+
+
+@get_metadata.route(route="get_metadata", auth_level=func.AuthLevel.ANONYMOUS, methods=["GET"])
 def get_metadata(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger. Lettura informazioni del dataset')
     

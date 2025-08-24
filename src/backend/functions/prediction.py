@@ -7,9 +7,12 @@ import joblib
 import azure.functions as func
 from shared.config import MODEL_CONTAINER, MODEL_NAME, PREPROCESSOR_NAME
 from shared.storage import get_blob_service
-from function_app import app
 
-@app.route(route="prediction", methods=["POST"])
+
+prediction = func.Blueprint()
+
+
+@prediction.route(route="prediction", methods=["POST"])
 def prediction(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger. Esecuzione della predizione')
 

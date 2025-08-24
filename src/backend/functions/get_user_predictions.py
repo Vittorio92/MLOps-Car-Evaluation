@@ -2,11 +2,14 @@ import logging
 import json
 import math
 import azure.functions as func
-from function_app import app
 from shared.db import get_conn
 from shared.config import PAGE_SIZE
 
-@app.route(route="get_user_predictions", methods=["GET"])
+
+get_user_predictions = func.Blueprint()
+
+
+@get_user_predictions.route(route="get_user_predictions", methods=["GET"])
 def get_user_predictions(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger. Lista delle predizioni di un utente')
     

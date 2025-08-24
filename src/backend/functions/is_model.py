@@ -1,12 +1,15 @@
 import logging
 import json
 import azure.functions as func
-from function_app import app
 from shared.config import MODEL_CONTAINER, MODEL_NAME
 from shared.storage import get_blob_service
 import os
 
-@app.route(route="isModel", methods=["GET"])
+
+isModel = func.Blueprint()
+
+
+@isModel.route(route="isModel", methods=["GET"])
 def isModel(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger. Verifica della presenza del modello')
     

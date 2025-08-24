@@ -9,12 +9,15 @@ from sklearn.compose import ColumnTransformer
 from sklearn.neural_network import MLPClassifier
 from sklearn.pipeline import Pipeline
 
-from function_app import app
 from shared.storage import get_blob_service
 from shared.config import MODEL_CONTAINER, MODEL_NAME
 
-@app.function_name(name="trainingFunctionEventGrid")
-@app.event_grid_trigger(arg_name="event", auth_level=func.AuthLevel.ANONYMOUS)
+
+trainingfunction = func.Blueprint()
+
+
+@trainingfunction.function_name(name="trainingFunctionEventGrid")
+@trainingfunction.event_grid_trigger(arg_name="event", auth_level=func.AuthLevel.ANONYMOUS)
 def trainingfunction(event: func.EventGridEvent):
     logging.info(f"Evento ricevuto: {event.event_type}")
 
