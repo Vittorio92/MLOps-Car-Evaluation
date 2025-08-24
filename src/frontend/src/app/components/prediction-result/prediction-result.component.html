@@ -1,0 +1,46 @@
+<div class="card h-100">
+    <div class="card-body">
+        <div class="d-flex align-items-center mb-3">
+            <i class="bi bi-graph-up-arrow me-2 fs-3 text-success"></i>
+            <h2 class="h3 m-0">Risultato della predizione</h2>
+        </div>
+
+        <ng-container *ngIf="!result && !loading; else content">
+            <div class="text-center text-muted py-5">
+                <i class="bi bi-bar-chart fs-1 d-block mb-3"></i>
+                <div>Compila il form e clicca <strong>"Effettua Car Evaluation"</strong> per vedere il risultato della predizione</div>
+            </div>
+        </ng-container>
+
+        <ng-template #content>
+            <ng-container *ngIf="loading; else showResult">
+            <div class="placeholder-glow">
+                <div class="placeholder col-12 mb-2" style="height: 1.8rem;"></div>
+                <div class="placeholder col-10 mb-2" style="height: 1.2rem;"></div>
+                <div class="placeholder col-8" style="height: 1.2rem;"></div>
+            </div>
+            </ng-container>
+
+            <ng-template #showResult>
+                
+                <div class="alert" [ngClass]="badgeClass(result?.prediction)" role="alert">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="fw-semibold text-uppercase text-center w-100"
+                            [ngSwitch]="result?.prediction"> 
+                            <span *ngSwitchCase="'unacc'">Inaccettabile</span>
+                            <span *ngSwitchCase="'acc'">Accettabile</span>
+                            <span *ngSwitchCase="'good'">Buono</span>
+                            <span *ngSwitchCase="'vgood'">Veramente buono</span>
+                            <span *ngSwitchDefault>{{ result?.prediction }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="isAuthenticated" class="mt-3" class="text-center">
+                    <button class="btn btn-primary btn-lg rounded-pill shadow" (click)="onSave()">
+                    💾 Salva predizione
+                    </button>
+                </div>
+            </ng-template>
+        </ng-template>
+    </div>
+</div>

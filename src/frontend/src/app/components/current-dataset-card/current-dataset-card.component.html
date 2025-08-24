@@ -1,0 +1,27 @@
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Dataset corrente</h5>
+
+        <div *ngIf="dataset; else empty">
+            <table class="table table-bordered table-sm mt-2 text-center">
+                <tbody>
+                <tr>
+                    <td><strong>File:</strong> {{ dataset.name }}</td>
+                    <td><strong>Size:</strong> {{ dataset.size |bytesToReadable}} </td>
+                    <td><strong>Ultima modifica:</strong> {{ dataset.last_modified | date:'short' }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Records:</strong> {{ dataset.n_row }}</td>
+                    <td><strong>Feature:</strong> {{ dataset.n_col }}</td>
+                    <td><strong>Stato:</strong> <i class="bi bi-check-circle-fill text-success ms-1"></i></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <ng-template #empty>
+        <div class="text-muted">Nessun dataset caricato</div>
+        </ng-template>
+    </div>
+</div>

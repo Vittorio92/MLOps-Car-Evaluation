@@ -1,0 +1,34 @@
+<nav class="navbar bg-white shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-semibold" href="#">
+      <span class="me-2">🚗</span> Car Evaluation MLOps
+    </a>
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/car-evaluation" routerLinkActive="active">Car Evaluation</a>
+      </li>
+      <li class="nav-item" *ngIf="(role.isAdmin | async)">
+        <a class="nav-link" routerLink="/dataset" routerLinkActive="active">Dataset</a>
+      </li>
+    </ul>
+
+
+    <div class="d-flex ms-auto">
+      <button *ngIf="!(auth.isAuthenticated$ | async)" class="btn btn-outline-primary"
+              (click)="login()">
+        Login
+      </button>
+
+      <div *ngIf="auth.isAuthenticated$ | async" class="d-flex align-items-center">
+        <span class="me-2">{{ email }}</span>
+        <button class="btn btn-outline-danger" (click)="logout()">
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="container my-4">
+  <router-outlet></router-outlet>
+</main>

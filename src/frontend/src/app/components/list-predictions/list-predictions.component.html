@@ -1,0 +1,115 @@
+<div class="container mt-5">
+    <div class="row mb-4 justify-content-center">
+        <div class="col-md-4">
+            <div class="d-flex align-items-center">
+                <label for="classFilter" class="me-2 fw-bold">Filtri:</label>
+                <select id="classFilter" class="form-select shadow-sm" [(ngModel)]="selectedClass" (change)="applyFilter()">
+                <option value="">Tutte</option>
+                <option value="unacc">Inaccettabile</option>
+                <option value="acc">Accettabile</option>
+                <option value="good">Buono</option>
+                <option value="vgood">Veramente buono</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row g-4">
+        <div class="col-md-4" *ngFor="let p of predictions">
+            <div class="card h-100 shadow border-0 rounded-4 overflow-hidden">
+                <div class="card-header bg-gradient text-white text-center fw-bold" 
+                    [ngClass]="{
+                    'bg-danger': p.class === 'unacc',
+                    'bg-warning': p.class === 'acc',
+                    'bg-info': p.class === 'good',
+                    'bg-success': p.class === 'vgood'
+                    }" [ngSwitch]="p.class">
+                        <span *ngSwitchCase="'unacc'">Inaccettabile</span>
+                        <span *ngSwitchCase="'acc'">Accettabile</span>
+                        <span *ngSwitchCase="'good'">Buono</span>
+                        <span *ngSwitchCase="'vgood'">Veramente buono</span>
+                        <span *ngSwitchDefault>{{ p.class | titlecase }}</span>
+                </div>
+            
+                <div class="card-body p-4">
+                    <div class="row gy-2">
+                        <div class="col-6" [ngSwitch]="p.buying">
+                            <i class="bi bi-cash-coin text-primary me-2"></i>
+                            <strong>Prezzo: </strong>
+                                <span *ngSwitchCase="'vhigh'">V. Alto</span>
+                                <span *ngSwitchCase="'high'">Alto</span>
+                                <span *ngSwitchCase="'med'">Medio</span>
+                                <span *ngSwitchCase="'low'">Basso</span>
+                                <span *ngSwitchDefault>{{ p.buying }}</span>
+                        </div>
+                        <div class="col-6" [ngSwitch]="p.maint">
+                            <i class="bi bi-tools text-secondary me-2"></i>
+                            <strong>Mant: </strong>
+                                <span *ngSwitchCase="'vhigh'">V. Alto</span>
+                                <span *ngSwitchCase="'high'">Alto</span>
+                                <span *ngSwitchCase="'med'">Medio</span>
+                                <span *ngSwitchCase="'low'">Basso</span>
+                                <span *ngSwitchDefault>{{ p.maint }}</span>
+                        </div>
+                        <div class="col-6" [ngSwitch]="p.doors">
+                            <i class="bi bi-car-front text-dark me-2"></i>
+                            <strong>Porte: </strong>
+                                <span *ngSwitchCase="'5more'">5 o più</span>
+                                <span *ngSwitchDefault>{{ p.doors }}</span>
+                        </div>
+                        <div class="col-6" [ngSwitch]="p.persons">
+                            <i class="bi bi-people text-success me-2"></i>
+                            <strong>Persone: </strong>
+                                <span *ngSwitchCase="'more'">Più</span>
+                                <span *ngSwitchDefault>{{ p.persons }}</span>
+                        </div>
+                        <div class="col-6" [ngSwitch]="p.lug_boot">
+                            <i class="bi bi-briefcase text-warning me-2"></i>
+                            <strong>Bag: </strong>
+                                <span *ngSwitchCase="'small'">Piccolo</span>
+                                <span *ngSwitchCase="'med'">Medio</span>
+                                <span *ngSwitchCase="'big'">Grande</span>
+                                <span *ngSwitchDefault>{{ p.lug_boot }}</span>
+                        </div>
+                        <div class="col-6" [ngSwitch]="p.safety">
+                            <i class="bi bi-shield-check text-danger me-2"></i>
+                            <strong>Sic: </strong>
+                                <span *ngSwitchCase="'high'">Alto</span>
+                                <span *ngSwitchCase="'med'">Media</span>
+                                <span *ngSwitchCase="'low'">Basso</span>
+                                <span *ngSwitchDefault>{{ p.safety }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer bg-light text-center border-0">
+                    <button class="btn btn-outline-danger btn-sm rounded-pill px-4"
+                            (click)="deletePrediction(p)">
+                    <i class="bi bi-trash"></i> Elimina
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-2" *ngIf="errorMessage" @fadeInOut>
+        <div class="alert alert-danger p-2">{{ errorMessage }}</div>
+    </div>
+
+
+    <nav aria-label="Pagination" class="mt-5">
+        <ul class="pagination justify-content-center">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+            <a class="page-link shadow-sm" (click)="changePage(currentPage - 1)">Prec</a>
+        </li>
+        <li class="page-item" *ngFor="let p of [].constructor(totalPages); let i = index" 
+            [class.active]="currentPage === i + 1">
+            <a class="page-link shadow-sm" (click)="changePage(i + 1)">{{ i + 1 }}</a>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a class="page-link shadow-sm" (click)="changePage(currentPage + 1)">Succ</a>
+        </li>
+        </ul>
+    </nav>
+</div>

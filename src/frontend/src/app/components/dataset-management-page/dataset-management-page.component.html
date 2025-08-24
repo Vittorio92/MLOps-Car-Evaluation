@@ -1,0 +1,16 @@
+<div class="card p-4">
+    <h4><i class="me-2">🗃️</i>Gestione del Dataset</h4>
+
+    <app-upload-area (fileDropped)="onFileDropped($event)"></app-upload-area>
+
+    <div class="mt-3" *ngIf="uploading">
+        <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+        <span>Uploading...</span>
+    </div>
+
+    <div class="mt-2" *ngIf="errorMessage" @fadeInOut>
+        <div class="alert alert-danger p-2">{{ errorMessage }}</div>
+    </div>
+
+    <app-current-dataset-card [dataset]="dataset"></app-current-dataset-card>
+</div>

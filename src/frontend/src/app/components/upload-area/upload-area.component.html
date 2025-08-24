@@ -1,0 +1,14 @@
+<div
+    class="upload-area text-center p-5"
+    [class.drag-over]="dragOver"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)"
+    >
+    <div class="mb-3" style="font-size: 40px;">☁️⬆️</div>
+    <h5>Upload new Dataset</h5>
+    <p class="text-muted">Trascina il dataset qui, oppure clicca per selezionarlo</p>
+
+    <input #fileInput type="file" accept=".csv, .data" hidden (change)="onFileSelected($event)">
+    <button class="btn btn-primary" (click)="fileInput.click()">Scegli File</button>
+</div>

@@ -1,0 +1,29 @@
+<div class="row g-4">
+    <div class="col-12 col-lg-6">
+        <div class="d-flex align-items-center mb-2">
+            <span class="me-2">Modello:</span>
+            <ng-container *ngIf="model !== null">
+                <i *ngIf="model" class="bi bi-check-circle text-success"></i>
+                <i *ngIf="!model" class="bi bi-x-circle text-danger"></i>
+            </ng-container>
+            <span *ngIf="model === null">Verifica presenza del modello in corso...</span>
+        </div>
+        <app-car-form (evaluate)="onEvaluate($event)"></app-car-form>
+    </div>
+    <div class="col-12 col-lg-6">
+        <app-prediction-result [loading]="loading" [result]="result"
+            [isAuthenticated]="auth.isAuthenticated$ | async"
+            (save)="savePrediction()">></app-prediction-result>
+    </div>
+    <div class="mt-2" *ngIf="errorMessage" @fadeInOut>
+        <div class="alert alert-danger p-2">{{ errorMessage }}</div>
+    </div>
+
+    <div class="mt-2" *ngIf="successMessage" @fadeInOut>
+        <div class="alert alert-success p-2">{{ successMessage }}</div>
+    </div>
+
+    <div *ngIf="auth.isAuthenticated$ | async" class="container mt-4">
+        <app-list-predictions></app-list-predictions>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center mb-3">
+            <i class="bi bi-clipboard2-check me-2 fs-3 text-primary"></i>
+            <h2 class="h3 m-0">"Car Evaluation" Form</h2>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="submit()" class="row g-3">
+            <div class="col-12 col-md-6">
+            <label class="form-label">Prezzo d'acquisto</label>
+            <select class="form-select" formControlName="buying">
+                <option value="">Seleziona il prezzo d'acquisto</option>
+                <option *ngFor="let o of options" [value]="o.value">{{ o.label }}</option>
+            </select>
+            </div>
+
+            <div class="col-12 col-md-6">
+            <label class="form-label">Costi di manutenzione</label>
+            <select class="form-select" formControlName="maint">
+                <option value="">Seleziona il costo di manutenzione</option>
+                <option *ngFor="let o of options" [value]="o.value">{{ o.label }}</option>
+            </select>
+            </div>
+
+            <div class="col-12 col-md-6">
+            <label class="form-label">Numero di porte</label>
+            <select class="form-select" formControlName="doors">
+                <option value="">Seleziona il numero di porte</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5more">5 o più</option>
+            </select>
+            </div>
+
+            <div class="col-12 col-md-6">
+            <label class="form-label">Capacità del numero di persone </label>
+            <select class="form-select" formControlName="persons">
+                <option value="">Seleziona il numero di persone</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="more">Di più</option>
+            </select>
+            </div>
+
+            <div class="col-12 col-md-6">
+            <label class="form-label">Grandezza del bagagliaglio</label>
+            <select class="form-select" formControlName="lug_boot">
+                <option value="">Seleziona la grandezza del bagagliaglio</option>
+                <option value="small">Piccolo</option>
+                <option value="med">Medio</option>
+                <option value="big">Grande</option>
+            </select>
+            </div>
+
+            <div class="col-12 col-md-6">
+            <label class="form-label">Valutazione sulla sicurezza</label>
+            <select class="form-select" formControlName="safety">
+                <option value="">Seleziona la sicurezza</option>
+                <option value="low">Bassa</option>
+                <option value="med">Media</option>
+                <option value="high">Alta</option>
+            </select>
+            </div>
+
+            <div class="col-12">
+            <button class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center"
+                    type="submit" [disabled]="form.invalid">
+                <i class="bi bi-stars me-2"></i> Effettua "Car Evaluation"
+            </button>
+            </div>
+        </form>
+    </div>
+</div>
